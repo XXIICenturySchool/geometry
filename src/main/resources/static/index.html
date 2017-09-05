@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <script type="text/javascript" src="js/ElementConstructor.js"></script>
+    <script type="text/javascript" src="js/Checkbox.js"></script>
+    <script type="text/javascript" src="js/VariableConstraints.js"></script>
+    <script type="text/javascript" src="js/TaskItemManager.js"></script>
+    <script type="text/javascript" src="js/ItemTypesService.js"></script>
+    <script type="text/javascript" src="js/TaskItem.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+<div id="main-area"></div>
+<script>
+    var taskItemManager = new TaskItemManager(ItemTypesService.getTypes());
+</script>
+<button onclick="taskItemManager.addItem()">Add question</button>
+<button id="submit-button" onclick="taskItemManager.sendExam()">Submit exam</button>
+</body>
+</html>
