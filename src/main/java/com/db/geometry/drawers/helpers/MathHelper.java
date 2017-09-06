@@ -1,6 +1,6 @@
-package com.db.geometry.tasksCreation.heplpers;
+package com.db.geometry.drawers.helpers;
 
-public class MathHelpers {
+public class MathHelper {
 
 
     static public double sinDegrees(int degrees) {
@@ -11,5 +11,5 @@ public class MathHelpers {
         return Math.cos(Math.toRadians(degrees));
     }
 
-    private MathHelpers() {}
+    private MathHelper() {}
 }

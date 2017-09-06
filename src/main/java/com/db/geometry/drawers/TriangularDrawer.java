@@ -1,5 +1,5 @@
 
-package com.db.geometry.tasksCreation;
+package com.db.geometry.drawers;
 
 import lombok.Setter;
 
@@ -12,8 +12,8 @@ import java.awt.geom.GeneralPath;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.cosDegrees;
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.sinDegrees;
+import static com.db.geometry.drawers.helpers.MathHelper.cosDegrees;
+import static com.db.geometry.drawers.helpers.MathHelper.sinDegrees;
 import static java.lang.Math.*;
 
 

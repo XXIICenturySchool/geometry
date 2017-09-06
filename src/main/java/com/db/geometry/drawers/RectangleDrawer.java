@@ -1,4 +1,4 @@
-package com.db.geometry.tasksCreation;
+package com.db.geometry.drawers;
 
 import lombok.Setter;
 

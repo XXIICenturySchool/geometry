@@ -5,7 +5,7 @@ class TaskItem {
         this.itemTypes = itemTypes;
         this.typesMap = {};
         for (let type of this.itemTypes) {
-            this.typesMap[type.name] = type;
+            this.typesMap[type.type] = type;
         }
 
         let item = this;
@@ -18,6 +18,7 @@ class TaskItem {
 
         let select = document.createElement("select");
         select.className += "item-row-element";
+        this.select = select;
         selectBox.appendChild(select);
 
         let deleteButton = document.createElement("button");
@@ -48,11 +49,11 @@ class TaskItem {
 
         for (let type of itemTypes) {
             let option = document.createElement("option");
-            option.textContent = type.name;
+            option.textContent = type.type;
             select.appendChild(option);
         }
 
-        select.value = itemTypes[0].name;
+        select.value = itemTypes[0].type;
         select.onchange();
 
         this.node = node;
@@ -64,8 +65,6 @@ class TaskItem {
 
      onTypeChange(upperRow, lowerRow) {
         let itemType = this.typesMap[this.value];
-        let type = itemType.name;
-
         upperRow.textContent = "";
         lowerRow.textContent = "";
         this.checkboxes = [];
@@ -86,8 +85,8 @@ class TaskItem {
 
     getInfo() {
         let info = {};
+        info.type = this.select.value;
         info.amount = this.amount.value;
-
         info.checkboxes = [];
         info.constraints = [];
 
