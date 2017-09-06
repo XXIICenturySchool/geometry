@@ -23,11 +23,9 @@ class TaskItemManager {
             examInfo.push(task.getInfo());
         }
 
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open('POST', '/newexam', true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(examInfo));
-
         xhr.onreadystatechange = function() {
             if (xhr.readyState != 4)
                 return;
@@ -36,6 +34,7 @@ class TaskItemManager {
             } else {
                 alert(xhr.responseText);
             }
-        }
+        };
+        xhr.send(JSON.stringify(examInfo));
     }
 }

@@ -24,8 +24,8 @@ class VariableConstraints {
     toJSON() {
         return {
             "variable": this.variable,
-            "lower": this.lowerBorder.value,
-            "upper": this.upperBorder.value
+            "lower": parseInt(this.lowerBorder.value),
+            "upper": parseInt(this.upperBorder.value)
         };
     }
 }
