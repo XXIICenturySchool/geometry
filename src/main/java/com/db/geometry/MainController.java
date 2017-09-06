@@ -1,21 +1,20 @@
 package com.db.geometry;
 
-import com.db.geometry.generators.TaskGenerator;
-import com.db.geometry.tasks.Task;
+import com.db.geometry.generators.ExamGenerator;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class MainController {
     @Autowired
-    private TaskGenerator taskGenerator;
+    private ExamDao dao;
+
+    @Autowired
+    private ExamGenerator examGenerator;
 
     @Autowired
     private List<TaskType> tasksTypes;
@@ -25,8 +24,20 @@ public class MainController {
         return tasksTypes;
     }
 
+    @GetMapping("/id/{id}")
+    public Exam getExamById(@PathVariable String id) {
+        return dao.findById(id);
+    }
+
+    @GetMapping("exams")
+    public List<Exam> getAllExams() {
+        return dao.findAll();
+    }
+
     @PostMapping("/newexam")
-    public List<Task> test(@RequestBody List<TaskInfo> taskInfoList) {
-        return taskGenerator.generate(taskInfoList);
+    public String addExam(@RequestBody List<TaskInfo> taskInfoList) {
+        Exam exam = examGenerator.generate(taskInfoList);
+        dao.insert(exam);
+        return exam.getId();
     }
 }

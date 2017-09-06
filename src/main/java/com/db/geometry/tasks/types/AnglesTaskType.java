@@ -8,8 +8,6 @@ import java.util.ArrayList;
 public class AnglesTaskType extends TaskType {
 
     private AnglesTaskType() {
-        this.type = "Angles";
-        this.checkboxes = new ArrayList<>();
-        this.variables = new ArrayList<>();
+        super("Angles", new ArrayList<>(), new ArrayList<>());
     }
 }
