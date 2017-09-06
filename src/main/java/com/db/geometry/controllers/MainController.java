@@ -2,7 +2,7 @@ package com.db.geometry.controllers;
 
 import com.db.geometry.Exam;
 import com.db.geometry.ExamDao;
-import com.db.geometry.generators.ExamGenerator;
+import com.db.geometry.taskGenerators.ExamGenerator;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
 import com.db.geometry.drawers.TriangularDrawer;

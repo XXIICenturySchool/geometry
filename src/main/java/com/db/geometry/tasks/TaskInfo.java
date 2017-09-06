@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class TaskInfo {
+//    Pythagoras, Angles
     private final String type;
     private final int amount;
     private final List<Checkbox> checkboxes;
