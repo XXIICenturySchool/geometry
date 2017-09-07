@@ -1,6 +1,5 @@
 package com.db.geometry.services;
 
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

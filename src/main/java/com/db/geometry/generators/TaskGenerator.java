@@ -1,4 +1,4 @@
-package com.db.geometry.taskGenerators;
+package com.db.geometry.generators;
 
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;

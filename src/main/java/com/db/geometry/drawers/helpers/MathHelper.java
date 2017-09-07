@@ -1,6 +1,6 @@
-package com.db.geometry.tasksCreation.heplpers;
+package com.db.geometry.drawers.helpers;
 
-public class MathHelpers {
+public class MathHelper {
 
 
     static public double sinDegrees(int degrees) {
@@ -19,5 +19,5 @@ public class MathHelpers {
         return Math.sqrt(hypot*hypot + cathet*cathet);
     }
 
-    private MathHelpers() {}
+    private MathHelper() {}
 }

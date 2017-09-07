@@ -1,10 +1,10 @@
-package com.db.geometry.taskGenerators;
+package com.db.geometry.generators;
 
 import com.db.geometry.services.RandomService;
 import com.db.geometry.tasks.Constraint;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
-import com.db.geometry.tasksCreation.TriangularDrawer;
+import com.db.geometry.drawers.TriangularDrawer;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.getCathet;
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.getHypot;
+import static com.db.geometry.drawers.helpers.MathHelper.getCathet;
+import static com.db.geometry.drawers.helpers.MathHelper.getHypot;
 
 
 @TaskName("Pythagoras")
@@ -44,7 +44,7 @@ public class PythagorasTaskGenerator implements TaskGenerator {
         List<Constraint> constraints = taskInfo.getConstraints();
 
         int cathetA = -1, cathetB = -1, hypot = -1;
-        Constraint constraintOnCthet1 = constraints.get(0);
+        Constraint constraintOnCathet1 = constraints.get(0);
         Constraint constraintOnCathet2 = constraints.get(1);
         Constraint constraintOnHypot = constraints.get(2);
 
@@ -52,10 +52,10 @@ public class PythagorasTaskGenerator implements TaskGenerator {
         TriangularDrawer triangularDrawer = new TriangularDrawer();
 
         if (constraintOnHypot.getLower() != 0 || constraintOnHypot.getUpper() != 0) {
-            String question = "В прямоугольном треугольнике дана гипотенуза = %d, и один кактет = %d, найдите неизвестный кактет.";
+            String question = "В прямоугольном треугольнике дана гипотенуза = %d, и один катет = %d, найдите неизвестный катет.";
             hypot = randomService.getInRange(constraintOnHypot.getLower(), constraintOnHypot.getUpper() + 1);
-            if (constraintOnCthet1.getLower() != 0 || constraintOnCthet1.getUpper() != 0) {
-                cathetA = randomService.getInRange(constraintOnCthet1.getLower(), Math.min(constraintOnCthet1.getUpper(), hypot) + 1);
+            if (constraintOnCathet1.getLower() != 0 || constraintOnCathet1.getUpper() != 0) {
+                cathetA = randomService.getInRange(constraintOnCathet1.getLower(), Math.min(constraintOnCathet1.getUpper(), hypot) + 1);
                 bi = triangularDrawer.createOnCathetAndHypotenuse(cathetA, hypot);
                 taskBuilder.answer(String.valueOf(getCathet(cathetA, hypot)));
                 taskBuilder.question(String.format(question, hypot, cathetA));
@@ -72,9 +72,9 @@ public class PythagorasTaskGenerator implements TaskGenerator {
                 System.out.println(cathetA + " " + hypot);
             }
         } else {
-            String question = "В прямоугольном треугольнике даны два катета один = %d, и дугой кактет = %d, найдите гипотенузу.";
-            if (constraintOnCthet1.getLower() != 0 || constraintOnCthet1.getUpper() != 0) {
-                cathetA = randomService.getInRange(constraintOnCthet1.getLower(), constraintOnCthet1.getUpper() + 1);
+            String question = "В прямоугольном треугольнике даны два катета один = %d, и другой катет = %d, найдите гипотенузу.";
+            if (constraintOnCathet1.getLower() != 0 || constraintOnCathet1.getUpper() != 0) {
+                cathetA = randomService.getInRange(constraintOnCathet1.getLower(), constraintOnCathet1.getUpper() + 1);
             }
             if (constraintOnCathet2.getLower() != 0 || constraintOnCathet2.getUpper() != 0) {
                 cathetB = randomService.getInRange(constraintOnCathet2.getLower(), constraintOnCathet2.getUpper() + 1);

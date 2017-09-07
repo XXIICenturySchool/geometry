@@ -1,10 +1,9 @@
-package com.db.geometry.tasksCreation;
+package com.db.geometry.drawers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

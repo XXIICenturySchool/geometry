@@ -1,11 +1,8 @@
-package com.db.geometry.taskGenerators;
+package com.db.geometry.generators;
 
 import com.db.geometry.Exam;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
-import com.sun.scenario.effect.Reflection;
-import org.reflections.ReflectionUtils;
-import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

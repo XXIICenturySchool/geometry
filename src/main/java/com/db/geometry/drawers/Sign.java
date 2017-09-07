@@ -1,8 +1,7 @@
-package com.db.geometry.tasksCreation;
+package com.db.geometry.drawers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 @AllArgsConstructor
 @Data

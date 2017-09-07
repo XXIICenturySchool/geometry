@@ -1,9 +1,9 @@
-package com.db.geometry.taskGenerators;
+package com.db.geometry.generators;
 
 import com.db.geometry.services.RandomService;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
-import com.db.geometry.tasksCreation.TriangularDrawer;
+import com.db.geometry.drawers.TriangularDrawer;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

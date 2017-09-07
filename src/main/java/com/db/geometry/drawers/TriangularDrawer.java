@@ -1,5 +1,5 @@
 
-package com.db.geometry.tasksCreation;
+package com.db.geometry.drawers;
 
 import lombok.Setter;
 
@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.geom.GeneralPath;
-import java.util.Random;
 import java.util.stream.Collectors;
 
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.cosDegrees;
-import static com.db.geometry.tasksCreation.heplpers.MathHelpers.sinDegrees;
+import static com.db.geometry.drawers.helpers.MathHelper.cosDegrees;
+import static com.db.geometry.drawers.helpers.MathHelper.sinDegrees;
 import static java.lang.Math.*;
 
 
@@ -26,8 +25,6 @@ public class TriangularDrawer {
     private int sizeOfSheet = 360;
     private BufferedImage bi;
 
-    private Random random = new Random();
-
     public TriangularDrawer() {
         bi = new BufferedImage(sizeOfSheet, sizeOfSheet, BufferedImage.TYPE_INT_ARGB);
         this.graphic = bi.createGraphics();
@@ -36,19 +33,10 @@ public class TriangularDrawer {
         graphic.setStroke(new BasicStroke(3));
     }
 
-
-    public static void main(String[] args) {
-        System.out.println(sinDegrees(30));
-        List<Integer> angles = Arrays.asList(1,2,3);
-        angles = angles.stream().sorted((x, y) -> Integer.compare(y, x)).collect(Collectors.toList());
-        System.out.println(angles);
-    }
-
-
     //    in the center by default
     public BufferedImage createOnPoints(List<Point> points, List<Sign> signs) {
-        int medianX = points.stream().map(point -> point.getX()).reduce((integer, integer2) -> integer + integer2).get();
-        int medianY = points.stream().map(point -> point.getY()).reduce((integer, integer2) -> integer + integer2).get();
+        int medianX = points.stream().map(Point::getX).reduce((integer, integer2) -> integer + integer2).get();
+        int medianY = points.stream().map(Point::getY).reduce((integer, integer2) -> integer + integer2).get();
         int shiftRight = (int) (sizeOfSheet/2 - medianX/2);
         int shiftBottom = sizeOfSheet/2 - medianY/3;
 
@@ -190,8 +178,6 @@ public class TriangularDrawer {
         signs.add(new Sign(points.get(0).middle(points.get(1).moveRight(padding/3)), !flag ? Integer.toString(cathet) : "?"));
         signs.add(new Sign(points.get(2).middle(points.get(1).moveBottom((int) (padding*1.5))), !flag ? "?" : Integer.toString((int) cathet2)));
         signs.add(new Sign(points.get(0).middle(points.get(2).moveUp(padding/2).moveLeft((int) (padding*1.5))), Integer.toString(hypot)));
-
-
 
         return createOnPoints(points, shiftRight, padding, signs);
 
