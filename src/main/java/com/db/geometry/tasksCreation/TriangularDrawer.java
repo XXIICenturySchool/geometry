@@ -91,7 +91,8 @@ public class TriangularDrawer {
 
     //    The last angle is unknown
     public BufferedImage createOnAngles(List<Integer> angles) {
-
+        int last = angles.get(2);
+        boolean flag = false;
         int sumOfAngles = angles.stream().reduce((integer, integer2) -> integer+integer2).get();
         if (sumOfAngles != 180) {
             throw new IllegalArgumentException("SUM OF ANGLES IN TRIANGLE MUST BE 180!, but you give " + angles + " = " + sumOfAngles);
@@ -116,11 +117,27 @@ public class TriangularDrawer {
         List<Point> points = Arrays.asList(new Point(aPoint), new Point(bPoint), new Point(cPoint));
         List<Sign> signs = new ArrayList<>();
 
-        int rand = random.nextInt(3);
-        signs.add(new Sign(points.get(0), rand == 0 ? "?°" : Integer.toString(angles.get(0)) + "°"));
-        signs.add(new Sign(points.get(1), rand == 1 ? "?°" : Integer.toString(angles.get(1)) + "°"));
-        signs.add(new Sign(points.get(2).moveBottom(padding/2).moveRight(padding/3),
-                rand == 2 ? "?°" : Integer.toString(angles.get(2)) + "°"));
+        if (last != angles.get(0)) {
+            signs.add(new Sign(points.get(0), Integer.toString(angles.get(0)) + "°"));
+        } else {
+            signs.add(new Sign(points.get(0), "?°"));
+            flag = true;
+        }
+
+        if (last != angles.get(1) || flag) {
+            signs.add(new Sign(points.get(1), Integer.toString(angles.get(1)) + "°"));
+        } else {
+            signs.add(new Sign(points.get(1), "?°"));
+            flag = true;
+        }
+
+        if (last != angles.get(2) || flag) {
+            signs.add(new Sign(points.get(2).moveBottom(padding/2).moveRight(padding/3),
+                    Integer.toString(angles.get(2)) + "°"));
+        } else {
+            signs.add(new Sign(points.get(2).moveBottom(padding/2).moveRight(padding/3),
+                    "?°"));
+        }
 
         return createOnPoints(points, signs);
     }
@@ -148,9 +165,19 @@ public class TriangularDrawer {
 
     public BufferedImage createOnCathetAndHypotenuse(int cathet, int hypot) {
         int absoluteDist = sizeOfSheet - padding * 2;
+        int temp;
+        boolean flag = false;
+        int cathet2 = (int) Math.sqrt(hypot * hypot - cathet * cathet);
 
-        double cathet2 = Math.sqrt(hypot * hypot - cathet * cathet);
+        if (cathet2 > cathet) {
+            temp = cathet2;
+            cathet2 = cathet;
+            cathet = temp;
+            flag = true;
+        }
+
         int bCathet = (int) (((double) absoluteDist / cathet) * cathet2);
+
 
         List<Point> points = Arrays.asList(new Point(0, absoluteDist), new Point(bCathet, absoluteDist), new Point(bCathet, 0));
         points = points.stream().sorted().collect(Collectors.toList());
@@ -159,9 +186,12 @@ public class TriangularDrawer {
         int shiftRight = sizeOfSheet/2 - (points.get(0).getX()-points.get(2).getX())/2;
 
         List<Sign> signs = new ArrayList<>();
-        signs.add(new Sign(points.get(0).middle(points.get(1).moveRight(padding/3)), absoluteDist > bCathet ? Integer.toString(cathet) : "?"));
-        signs.add(new Sign(points.get(2).middle(points.get(1).moveBottom((int) (padding*1.5))), absoluteDist > bCathet ? "?" : Integer.toString((int) cathet2)));
+
+        signs.add(new Sign(points.get(0).middle(points.get(1).moveRight(padding/3)), !flag ? Integer.toString(cathet) : "?"));
+        signs.add(new Sign(points.get(2).middle(points.get(1).moveBottom((int) (padding*1.5))), !flag ? "?" : Integer.toString((int) cathet2)));
         signs.add(new Sign(points.get(0).middle(points.get(2).moveUp(padding/2).moveLeft((int) (padding*1.5))), Integer.toString(hypot)));
+
+
 
         return createOnPoints(points, shiftRight, padding, signs);
 

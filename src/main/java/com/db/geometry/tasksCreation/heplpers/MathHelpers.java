@@ -11,5 +11,13 @@ public class MathHelpers {
         return Math.cos(Math.toRadians(degrees));
     }
 
+    static public double getHypot(int cathet1, int cathet2) {
+        return Math.sqrt(cathet1*cathet1 + cathet2*cathet2);
+    }
+
+    static public double getCathet(int cathet, int hypot) {
+        return Math.sqrt(hypot*hypot + cathet*cathet);
+    }
+
     private MathHelpers() {}
 }

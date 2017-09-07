@@ -57,8 +57,12 @@ public class MainController {
 
     @PostMapping("/newexam")
     public String addExam(@RequestBody List<TaskInfo> taskInfoList) {
-        Exam exam = examGenerator.generate(taskInfoList);
-        dao.insert(exam);
-        return exam.getId();
+        Exam tempExam = new Exam();
+        dao.insert(tempExam);
+        String id = tempExam.getId();
+        Exam exam = examGenerator.generate(taskInfoList, id);
+
+        dao.save(exam);
+        return id;
     }
 }

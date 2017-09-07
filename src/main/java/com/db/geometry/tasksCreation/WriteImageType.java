@@ -22,12 +22,12 @@ public class WriteImageType {
 
             TriangularDrawer triangularDrawer = new TriangularDrawer();
 
-//            triangularDrawer.createOnCathetus(3, 4, 360);
-//            triangularDrawer.createOnCathetAndHypotenuse(5, 6, 360);
-//            triangularDrawer.createOnAngles(Arrays.asList(60, 60, 60), 360);
+//            BufferedImage bi = triangularDrawer.createOnCathetus(3, 4, 360);
+            BufferedImage bi = triangularDrawer.createOnCathetAndHypotenuse(1, 7);
+//            BufferedImage bi = triangularDrawer.createOnAngles(Arrays.asList(60, 60, 60));
 
 //            RectangleDrawer rectangleDrawer = new RectangleDrawer(graphic);
-            BufferedImage bi = triangularDrawer.createOnCathetus(5, 10);
+//            BufferedImage bi = triangularDrawer.createOnCathetus(5, 10);
             ImageIO.write(bi, "png", new File("yourImageName.png"));
             ImageIO.write(bi, "gif", new File("yourImageName.gif"));
 
