@@ -1,6 +1,7 @@
 package com.db.geometry.generators;
 
 import com.db.geometry.drawers.TriangularDrawer;
+import com.db.geometry.services.ImageSaverService;
 import com.db.geometry.services.RandomService;
 import com.db.geometry.tasks.Constraint;
 import com.db.geometry.tasks.Task;
@@ -22,17 +23,8 @@ public class FindCatheterTaskGenerator implements TaskGenerator {
     @Autowired
     RandomService randomService;
 
-    @Value("${app.hostUrl}")
-    String hostUrl;
-
-    @Value("${app.task.static.folder}")
-    String staticFolder;
-
-    @Value("${app.task.images.path}")
-    String imagesPath;
-
-    @Value("${app.task.images.url}")
-    String imagesUrl;
+    @Autowired
+    ImageSaverService imageSaverService;
 
     @Override
     @SneakyThrows
@@ -61,7 +53,6 @@ public class FindCatheterTaskGenerator implements TaskGenerator {
             }
         }
 
-
         if (cat1 + hypot == -2) {
             hypot = randomService.getInRange(15, 21);
             cat1 = randomService.getInRange(10, hypot - 1);
@@ -71,17 +62,11 @@ public class FindCatheterTaskGenerator implements TaskGenerator {
             hypot = randomService.getInRange(cat1*3/2, cat1 * 2);
         }
 
-
         BufferedImage bi = triangularDrawer.createOnCathetAndHypotenuse(cat1, hypot);
 
-        taskBuilder.answer(String.valueOf((int)getCathet(cat1, hypot)));
-
-        String question = "В прямоугольном треугольнике дан один кактет = %d, и гипотенуза = %d. Найдите оставшиеся катет.";
-        taskBuilder.question(String.format(question, cat1, hypot));
-        String fileFullName = String.format("%s-%s.gif", examId, taskNum);
-        String safeFileName = staticFolder + imagesPath + fileFullName;
-        ImageIO.write(bi, "gif", new File(safeFileName));
-        taskBuilder.url(imagesUrl + fileFullName);
+        taskBuilder.answer(String.valueOf((int) Math.round(getCathet(cat1, hypot))));
+        taskBuilder.question("Find catheter (rounded to the nearest integer)");
+        taskBuilder.url(imageSaverService.saveAndGetAddress(bi, examId, taskNum));
 
         return taskBuilder.build();
     }

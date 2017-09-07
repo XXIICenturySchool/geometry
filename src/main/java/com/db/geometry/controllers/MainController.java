@@ -4,6 +4,7 @@ import com.db.geometry.Exam;
 import com.db.geometry.ExamDao;
 import com.db.geometry.ExamInfo;
 import com.db.geometry.generators.ExamGenerator;
+import com.db.geometry.services.Services;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +83,7 @@ public class MainController {
         if (loginResponse.getStatusCode() == HttpStatus.OK) {
             return "Your exam was successfully saved with id=" + loginResponse.getBody();
         } else {
-            return "An error occured while saving your exam";
+            return "An error occurred while saving your exam";
         }
     }
 }

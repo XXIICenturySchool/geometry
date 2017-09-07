@@ -25,25 +25,25 @@ public class ExamGenerator {
         }
     }
 
-
     public Exam generate(List<TaskInfo> taskInfoList, String examId) {
         List<Task> tasks = new ArrayList<>();
-        taskInfoList.forEach(taskInfo -> tasks.addAll(ExamGenerator.generateByInfo(taskInfo, examId)));
+        int countTasks = 0;
+        for (TaskInfo taskInfo: taskInfoList) {
+            tasks.addAll(ExamGenerator.generateByInfo(taskInfo, examId, countTasks));
+            countTasks += taskInfo.getAmount();
+        }
         return new Exam(examId, tasks);
     }
 
-    private static List<Task> generateByInfo(TaskInfo taskInfo, String examId) {
+    private static List<Task> generateByInfo(TaskInfo taskInfo, String examId, int startingId) {
         List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskInfo.getAmount(); i++) {
-            Task.TaskBuilder taskBuilder = Task.builder();
             TaskGenerator taskGenerator = taskGenerators.get(taskInfo.getType());
 
             if (taskGenerator == null) {
                 throw new RuntimeException("Cannot find task generator for task " + taskInfo.getType());
             }
-
-            tasks.add(taskGenerator.generateTask(taskInfo, examId, i + 1));
-
+            tasks.add(taskGenerator.generateTask(taskInfo, examId, startingId + i + 1));
         }
         return tasks;
     }

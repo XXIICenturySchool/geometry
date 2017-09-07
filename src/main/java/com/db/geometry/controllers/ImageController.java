@@ -13,9 +13,6 @@ import java.io.*;
 @Controller
 public class ImageController {
 
-    @Value("${app.hostUrl}")
-    String hostUrl;
-
     @Value("${app.task.static.folder}")
     String staticFolder;
 
