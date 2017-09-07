@@ -1,10 +1,10 @@
 package com.db.geometry.taskGenerators;
 
-import com.db.geometry.drawers.TriangularDrawer;
 import com.db.geometry.services.RandomService;
 import com.db.geometry.tasks.Constraint;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
+import com.db.geometry.tasksCreation.TriangularDrawer;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,12 +58,12 @@ public class PythagorasTaskGenerator implements TaskGenerator {
             String question = "В прямоугольном треугольнике дана гипотенуза = %d, и один кактет = %d, найдите неизвестный кактет.";
             hypot = randomService.getInRange(constraintOnHypot.getLower(), constraintOnHypot.getUpper() + 1);
             if (constraintOnCthet1.getLower() != 0 || constraintOnCthet1.getUpper() != 0) {
-                cathetA = randomService.getInRange(constraintOnCthet1.getLower(), constraintOnCthet1.getUpper() + 1);
+                cathetA = randomService.getInRange(constraintOnCthet1.getLower(), Math.min(constraintOnCthet1.getUpper(), hypot) + 1);
                 bi = triangularDrawer.createOnCathetAndHypotenuse(cathetA, hypot);
                 taskBuilder.answer(String.valueOf(getCathet(cathetA, hypot)));
                 taskBuilder.question(String.format(question, hypot, cathetA));
             } else if (constraintOnCathet2.getLower() != 0 || constraintOnCathet2.getUpper() != 0) {
-                cathetB = randomService.getInRange(constraintOnCathet2.getLower(), constraintOnCathet2.getUpper() + 1);
+                cathetB = randomService.getInRange(constraintOnCathet2.getLower(), Math.min(constraintOnCathet2.getUpper(), hypot) + 1);
                 bi = triangularDrawer.createOnCathetAndHypotenuse(cathetB, hypot);
                 taskBuilder.answer(String.valueOf(getCathet(cathetB, hypot)));
                 taskBuilder.question(String.format(question, hypot, cathetB));
@@ -72,6 +72,7 @@ public class PythagorasTaskGenerator implements TaskGenerator {
                 bi = triangularDrawer.createOnCathetAndHypotenuse(cathetA, hypot);
                 taskBuilder.answer(String.valueOf(getCathet(cathetA, hypot)));
                 taskBuilder.question(String.format(question, hypot, cathetA));
+                System.out.println(cathetA + " " + hypot);
             }
         } else {
             String question = "В прямоугольном треугольнике даны два катета один = %d, и дугой кактет = %d, найдите гипотенузу.";
@@ -99,7 +100,7 @@ public class PythagorasTaskGenerator implements TaskGenerator {
 
         String fileFullName = String.format("%s-%s.gif", examId, taskNum);
         String safeFileName = staticFolder + imagesPath + fileFullName;
-        ImageIO.write(bi, "gif", new File("test.gif"));
+        ImageIO.write(bi, "gif", new File(safeFileName));
         taskBuilder.url(imagesUrl + fileFullName);
 
         return taskBuilder.build();
