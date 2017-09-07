@@ -3,6 +3,7 @@ package com.db.geometry.controllers;
 import com.mongodb.gridfs.GridFSDBFile;
 import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,18 +12,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 //@PathVariable Long userId
 @Controller
 public class ImageController {
+
+    @Value("${app.hostUrl}")
+    String hostUrl;
+
+    @Value("${app.task.static.folder}")
+    String staticFolder;
+
+    @Value("${app.task.images.path}")
+    String imagesPath;
+
+    @Value("${app.task.images.url}")
+    String imagesUrl;
+
     @RequestMapping(value = "/images/{imageId}.gif", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> downloadUserAvatarImage(@PathVariable(value="imageId") String id) throws FileNotFoundException {
+    public ResponseEntity<InputStreamResource> downloadUserAvatarImage(HttpServletRequest request, @PathVariable(value="imageId") String imageId) throws FileNotFoundException {
 
-        System.out.println("Here!!!!!");
-        System.out.println(id);
-        File inFile = new File("src/main/resources/static/dinam/4.gif");
+        File inFile = new File(staticFolder + imagesPath + imageId + ".gif");
         InputStream in = new FileInputStream(inFile);
 
         return ResponseEntity.ok()

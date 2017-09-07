@@ -2,7 +2,7 @@ package com.db.geometry.controllers;
 
 import com.db.geometry.Exam;
 import com.db.geometry.ExamDao;
-import com.db.geometry.generators.ExamGenerator;
+import com.db.geometry.taskGenerators.ExamGenerator;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
 import com.db.geometry.drawers.TriangularDrawer;
@@ -57,8 +57,12 @@ public class MainController {
 
     @PostMapping("/newexam")
     public String addExam(@RequestBody List<TaskInfo> taskInfoList) {
-        Exam exam = examGenerator.generate(taskInfoList);
-        dao.insert(exam);
-        return exam.getId();
+        Exam tempExam = new Exam();
+        dao.insert(tempExam);
+        String id = tempExam.getId();
+        Exam exam = examGenerator.generate(taskInfoList, id);
+
+        dao.save(exam);
+        return id;
     }
 }
