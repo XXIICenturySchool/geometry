@@ -5,7 +5,7 @@ import com.db.geometry.ExamDao;
 import com.db.geometry.taskGenerators.ExamGenerator;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
-import com.db.geometry.drawers.TriangularDrawer;
+import com.db.geometry.tasksCreation.TriangularDrawer;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

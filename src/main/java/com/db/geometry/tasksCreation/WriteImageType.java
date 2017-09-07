@@ -23,7 +23,7 @@ public class WriteImageType {
             TriangularDrawer triangularDrawer = new TriangularDrawer();
 
 //            BufferedImage bi = triangularDrawer.createOnCathetus(3, 4, 360);
-            BufferedImage bi = triangularDrawer.createOnCathetAndHypotenuse(1, 7);
+            BufferedImage bi = triangularDrawer.createOnCathetAndHypotenuse(3, 7);
 //            BufferedImage bi = triangularDrawer.createOnAngles(Arrays.asList(60, 60, 60));
 
 //            RectangleDrawer rectangleDrawer = new RectangleDrawer(graphic);
