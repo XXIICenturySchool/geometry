@@ -2,34 +2,24 @@ package com.db.geometry.controllers;
 
 import com.db.geometry.Exam;
 import com.db.geometry.ExamDao;
+import com.db.geometry.ExamInfo;
 import com.db.geometry.taskGenerators.ExamGenerator;
 import com.db.geometry.tasks.TaskInfo;
 import com.db.geometry.tasks.types.TaskType;
-import com.db.geometry.tasksCreation.TriangularDrawer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 @RestController
 public class MainController {
-
-    @SneakyThrows
-    public String test(@RequestBody String json) {
-
-        TriangularDrawer triangularDrawer = new TriangularDrawer();
-
-        BufferedImage bi = triangularDrawer.createOnCathetus(5, 5);
-        ImageIO.write(bi, "png", new File("src/main/resources/static/dinam/2.png"));
-        ImageIO.write(bi, "gif", new File("src/main/resources/static/dinam/4.gif"));
-
-        System.out.println(json);
-        return "success";
-    }
 
     @Autowired
     private ExamDao dao;
@@ -39,6 +29,9 @@ public class MainController {
 
     @Autowired
     private List<TaskType> tasksTypes;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @GetMapping("types")
     public List<TaskType> getTaskTypes() {
@@ -61,8 +54,29 @@ public class MainController {
         dao.insert(tempExam);
         String id = tempExam.getId();
         Exam exam = examGenerator.generate(taskInfoList, id);
-
         dao.save(exam);
-        return id;
+        return saveExam(new ExamInfo(exam));
+    }
+
+    @SneakyThrows
+    private String saveExam(ExamInfo examInfo) {
+        ServiceInstance serviceInstance = Services.MAPLOGIN.pickRandomInstance(discoveryClient);
+        System.out.println("URI "+serviceInstance.getUri());
+        URL url = serviceInstance.getUri().toURL();
+        url = new URL(url.toString()+"/exams/saveExam");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonExam = objectMapper.writeValueAsString(examInfo);
+
+        HttpEntity<String> entity = new HttpEntity<>(jsonExam, headers);
+        ResponseEntity<String> loginResponse = restTemplate.exchange(url.toString(), HttpMethod.POST, entity, String.class);
+
+        if (loginResponse.getStatusCode() == HttpStatus.OK) {
+            return "Your exam was successfully saved with id=" + loginResponse.getBody();
+        } else {
+            return "An error occured while saving your exam";
+        }
     }
 }

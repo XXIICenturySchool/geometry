@@ -8,13 +8,10 @@ import com.db.geometry.tasksCreation.TriangularDrawer;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static com.db.geometry.tasksCreation.heplpers.MathHelpers.getCathet;
