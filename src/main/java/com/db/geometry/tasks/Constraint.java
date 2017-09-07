@@ -1,10 +1,13 @@
 package com.db.geometry.tasks;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Constraint {
-    private final int lower;
-    private final int upper;
+    private int lower;
+    private int upper;
     private String variable;
 }

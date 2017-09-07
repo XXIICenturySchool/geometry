@@ -16,7 +16,7 @@ public class MathHelper {
     }
 
     static public double getCathet(int cathet, int hypot) {
-        return Math.sqrt(hypot*hypot + cathet*cathet);
+        return Math.sqrt(hypot*hypot - cathet*cathet);
     }
 
     private MathHelper() {}
