@@ -1,4 +1,4 @@
-package com.db.geometry.controllers;
+package com.db.geometry.services;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -13,6 +13,7 @@ public enum Services {
     MAP("maplogin"),
     LOGIN("maplogin"),
     MATH("mathservice"),
+    GEOMETRY("geometry"),
     TELEGRAM("telegram");
 
     public final String id;
@@ -24,7 +25,7 @@ public enum Services {
     private static final Random random = new Random(new Date().getTime());
 
     private static ServiceInstance pickRandomInstanceFromList(List<ServiceInstance> instances) {
-        return instances.get(random.nextInt() % instances.size());
+        return instances.get(Math.abs(random.nextInt()) % instances.size());
     }
 
     public ServiceInstance pickRandomInstance(DiscoveryClient discoveryClient) {
