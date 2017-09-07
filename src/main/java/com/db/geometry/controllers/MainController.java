@@ -15,6 +15,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.List;
 
@@ -53,7 +54,12 @@ public class MainController {
         Exam tempExam = new Exam();
         dao.insert(tempExam);
         String id = tempExam.getId();
-        Exam exam = examGenerator.generate(taskInfoList, id);
+        Exam exam;
+        try {
+            exam = examGenerator.generate(taskInfoList, id);
+        } catch (RuntimeException exception) {
+            return exception.getMessage();
+        }
         dao.save(exam);
         return saveExam(new ExamInfo(exam));
     }
