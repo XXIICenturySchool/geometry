@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/ElementConstructor.js"></script>
     <script type="text/javascript" src="js/Checkbox.js"></script>
     <script type="text/javascript" src="js/VariableConstraints.js"></script>
@@ -15,8 +17,9 @@
 <div id="main-area"></div>
 <script>
     var taskItemManager = new TaskItemManager(ItemTypesService.getTypes());
+    taskItemManager.addItem();
 </script>
-<button onclick="taskItemManager.addItem()">Add question</button>
+<button onclick="taskItemManager.addItem()" class="margin-left item-row">Add question</button>
 <button id="submit-button" onclick="taskItemManager.sendExam()">Submit exam</button>
 </body>
 </html>

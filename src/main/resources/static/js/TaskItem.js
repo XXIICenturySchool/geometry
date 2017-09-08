@@ -10,7 +10,7 @@ class TaskItem {
 
         let item = this;
         let node = document.createElement("div");
-        node.className += "task-item";
+        node.className += "list-group-item";
 
         let selectBox = document.createElement("div");
         selectBox.className += "item-row";
@@ -29,9 +29,11 @@ class TaskItem {
         selectBox.appendChild(deleteButton);
 
         let amountBox = document.createElement("div");
+        amountBox.className += "item-row";
         node.appendChild(amountBox);
         let label = document.createElement("label");
         label.textContent = "Amount: ";
+        label.className += "item-row-element";
         amountBox.appendChild(label);
         this.amount = ElementConstructor.createNumberInput("tasks-amount");
         amountBox.appendChild(this.amount);

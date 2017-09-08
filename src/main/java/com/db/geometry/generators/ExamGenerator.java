@@ -25,14 +25,14 @@ public class ExamGenerator {
         }
     }
 
-    public Exam generate(List<TaskInfo> taskInfoList, String examId) {
+    public Exam generate(List<TaskInfo> taskInfoList, int teacherId, String examId) {
         List<Task> tasks = new ArrayList<>();
         int countTasks = 0;
         for (TaskInfo taskInfo: taskInfoList) {
             tasks.addAll(ExamGenerator.generateByInfo(taskInfo, examId, countTasks));
             countTasks += taskInfo.getAmount();
         }
-        return new Exam(examId, 1307, tasks);
+        return new Exam(examId, teacherId, tasks);
     }
 
     private static List<Task> generateByInfo(TaskInfo taskInfo, String examId, int startingId) {

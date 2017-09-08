@@ -2,14 +2,15 @@
     width: 75px;
 }
 
-.task-item {
-    margin-bottom: 20px;
-}
-
 .item-row-element {
     margin-right: 5px;
 }
 
+.margin-left {
+    margin-left: 20px;
+}
+
 .item-row {
+    margin-top: 5px;
     margin-bottom: 5px;
 }
