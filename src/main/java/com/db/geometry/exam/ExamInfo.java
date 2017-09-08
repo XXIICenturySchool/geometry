@@ -1,4 +1,4 @@
-package com.db.geometry;
+package com.db.geometry.exam;
 
 import lombok.Getter;
 

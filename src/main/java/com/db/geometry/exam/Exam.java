@@ -1,4 +1,4 @@
-package com.db.geometry;
+package com.db.geometry.exam;
 
 import com.db.geometry.tasks.Task;
 import lombok.AllArgsConstructor;
@@ -16,5 +16,6 @@ import java.util.List;
 public class Exam {
     @Id
     private String id;
+    private int teacherId;
     private List<Task> tasks;
 }

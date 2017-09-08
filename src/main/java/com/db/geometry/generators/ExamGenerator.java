@@ -1,6 +1,6 @@
 package com.db.geometry.generators;
 
-import com.db.geometry.Exam;
+import com.db.geometry.exam.Exam;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ExamGenerator {
             tasks.addAll(ExamGenerator.generateByInfo(taskInfo, examId, countTasks));
             countTasks += taskInfo.getAmount();
         }
-        return new Exam(examId, tasks);
+        return new Exam(examId, 1307, tasks);
     }
 
     private static List<Task> generateByInfo(TaskInfo taskInfo, String examId, int startingId) {

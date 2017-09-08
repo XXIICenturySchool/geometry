@@ -1,8 +1,9 @@
 package com.db.geometry.controllers;
 
-import com.db.geometry.Exam;
-import com.db.geometry.ExamDao;
-import com.db.geometry.ExamInfo;
+import com.db.geometry.exam.Exam;
+import com.db.geometry.exam.ExamDao;
+import com.db.geometry.exam.ExamInfo;
+import com.db.geometry.exam.ExamResponse;
 import com.db.geometry.generators.ExamGenerator;
 import com.db.geometry.services.Services;
 import com.db.geometry.tasks.TaskInfo;
@@ -13,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.List;
 
@@ -41,8 +42,9 @@ public class MainController {
     }
 
     @GetMapping("/id/{id}")
-    public Exam getExamById(@PathVariable String id) {
-        return dao.findById(id);
+    public ExamResponse getExamById(@PathVariable String id) {
+        Exam exam = dao.findById(id);
+        return new ExamResponse(exam);
     }
 
     @GetMapping("exams")
@@ -51,6 +53,7 @@ public class MainController {
     }
 
     @PostMapping("/newexam")
+    @Transactional
     public String addExam(@RequestBody List<TaskInfo> taskInfoList) {
         Exam tempExam = new Exam();
         dao.insert(tempExam);
@@ -68,7 +71,6 @@ public class MainController {
     @SneakyThrows
     private String saveExam(ExamInfo examInfo) {
         ServiceInstance serviceInstance = Services.MAPLOGIN.pickRandomInstance(discoveryClient);
-        System.out.println("URI "+serviceInstance.getUri());
         URL url = serviceInstance.getUri().toURL();
         url = new URL(url.toString()+"/exams/saveExam");
         RestTemplate restTemplate = new RestTemplate();

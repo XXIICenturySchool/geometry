@@ -8,14 +8,14 @@ import java.util.List;
 
 @Getter
 public class Task {
-    private final List<String> answers;
+    private final List<String> answer;
     private final String question;
     private final List<String> options = new ArrayList<>();
     private final String pictureUrl;
 
-    @java.beans.ConstructorProperties({"answers", "question", "pictureUrl"})
-    Task(List<String> answers, String question, String pictureUrl) {
-        this.answers = answers;
+    @java.beans.ConstructorProperties({"answer", "question", "pictureUrl"})
+    Task(List<String> answer, String question, String pictureUrl) {
+        this.answer = answer;
         this.question = question;
         this.pictureUrl = pictureUrl;
     }
@@ -25,7 +25,7 @@ public class Task {
     }
 
     public static class TaskBuilder {
-        private List<String> answers;
+        private List<String> answer;
         private String question;
         private String pictureUrl;
 
@@ -33,7 +33,7 @@ public class Task {
         }
 
         public Task.TaskBuilder answer(String answer) {
-            this.answers = Arrays.asList(answer);
+            this.answer = Arrays.asList(answer);
             return this;
         }
 
@@ -48,11 +48,11 @@ public class Task {
         }
 
         public Task build() {
-            return new Task(answers, question, pictureUrl);
+            return new Task(answer, question, pictureUrl);
         }
 
         public String toString() {
-            return "com.db.geometry.tasks.Task.TaskBuilder(answers=" + this.answers + ", question=" + this.question + ", pictureUrl=" + this.pictureUrl + ")";
+            return "com.db.geometry.tasks.Task.TaskBuilder(answer=" + this.answer + ", question=" + this.question + ", pictureUrl=" + this.pictureUrl + ")";
         }
     }
 }
