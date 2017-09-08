@@ -17,7 +17,9 @@ import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.net.URL;
 import java.util.List;
 
@@ -47,6 +49,13 @@ public class MainController {
         return new ExamResponse(exam);
     }
 
+    @GetMapping("/geometry")
+    public RedirectView registerTeacher(@RequestParam("teacherId") int id, HttpSession session) {
+        session.setAttribute("teacherId", id);
+        System.out.println(id);
+        return new RedirectView("/");
+    }
+
     @GetMapping("exams")
     public List<Exam> getAllExams() {
         return dao.findAll();
@@ -54,13 +63,16 @@ public class MainController {
 
     @PostMapping("/newexam")
     @Transactional
-    public String addExam(@RequestBody List<TaskInfo> taskInfoList) {
+    public String addExam(@RequestBody List<TaskInfo> taskInfoList, HttpSession session) {
         Exam tempExam = new Exam();
         dao.insert(tempExam);
         String id = tempExam.getId();
+        int teacherId = 0;
+        if (session.getAttribute("teacherId") != null)
+            teacherId = (int) session.getAttribute("teacherId");
         Exam exam;
         try {
-            exam = examGenerator.generate(taskInfoList, id);
+            exam = examGenerator.generate(taskInfoList, teacherId, id);
         } catch (RuntimeException exception) {
             return exception.getMessage();
         }
