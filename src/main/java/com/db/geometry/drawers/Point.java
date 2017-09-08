@@ -12,16 +12,6 @@ import java.util.stream.Stream;
 @ToString
 public class Point implements Comparable<Point> {
 
-    public static void main(String[] args) {
-        Point a = new Point(3, 1);
-        Point b = new Point(3, 3);
-        Point c = new Point(1, 3);
-
-        System.out.println(Stream.of(b, a, c).sorted()
-                .collect(Collectors.toList()));
-
-    }
-
     private final int x;
     private final int y;
 

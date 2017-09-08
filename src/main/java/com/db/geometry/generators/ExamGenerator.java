@@ -1,6 +1,7 @@
 package com.db.geometry.generators;
 
 import com.db.geometry.exam.Exam;
+import com.db.geometry.services.RandomService;
 import com.db.geometry.tasks.Task;
 import com.db.geometry.tasks.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import java.util.*;
 
 @Service
 public class ExamGenerator {
-    private Random rng = new Random();
 
     private static Map<String, TaskGenerator> taskGenerators;
 

@@ -8,6 +8,6 @@ import java.util.Arrays;
 public class FindCatheterTaskType extends TaskType {
 
     private FindCatheterTaskType() {
-        super("FindCatheters", Arrays.asList("canAnswerBeFloat"), Arrays.asList("catheter", "hypotenuse"));
+        super("FindCatheters", Arrays.asList(), Arrays.asList("catheter", "hypotenuse"));
     }
 }

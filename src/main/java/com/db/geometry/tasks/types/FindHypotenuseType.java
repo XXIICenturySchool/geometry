@@ -8,6 +8,6 @@ import java.util.List;
 @Component
 public class FindHypotenuseType extends TaskType {
     public FindHypotenuseType() {
-        super("FindHypotenuse", Arrays.asList("canAnswerBeFloat"), Arrays.asList("catheter", "catheter"));
+        super("FindHypotenuse", Arrays.asList(), Arrays.asList("catheter", "catheter"));
     }
 }
