@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Service
 public class ImageSaverService {
@@ -28,6 +30,11 @@ public class ImageSaverService {
     public String saveAndGetAddress(BufferedImage image, String examId, int taskNum) {
         String fileFullName = String.format("%s-%s.gif", examId, taskNum);
         String safeFileName = staticFolder + imagesPath + fileFullName;
+
+        File file = new File(staticFolder + imagesPath);
+        if (!file.exists() || !file.isDirectory()) {
+            file.mkdir();
+        }
         ImageIO.write(image, "gif", new File(safeFileName));
         return "http://" + InetAddress.getLocalHost().getHostName() +  ":" + port + imagesUrl + fileFullName;
     }
