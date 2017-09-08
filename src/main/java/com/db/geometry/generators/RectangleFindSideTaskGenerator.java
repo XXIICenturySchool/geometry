@@ -51,7 +51,7 @@ public class RectangleFindSideTaskGenerator implements TaskGenerator{
 
         BufferedImage bi = rectangleDrawer.drawRectangleSideFromArea(side1, side2);
 
-        taskBuilder.answer(String.valueOf(side1 * side2));
+        taskBuilder.answer(String.valueOf(Math.min(side1, side2)));
         taskBuilder.question("Find unknown side of rectangle by known side and area.");
         taskBuilder.url(imageSaverService.saveAndGetAddress(bi, examId, taskNum));
 

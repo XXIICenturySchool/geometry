@@ -25,7 +25,7 @@ public class WriteImageType {
             RectangleDrawer rectangleDrawer = new RectangleDrawer();
 //            BufferedImage bi = triangularDrawer.createOnCathetus(3, 4, 360);
 //            BufferedImage bi = rectangleDrawer.drawRectangleArea(37, 12);
-            BufferedImage bi = rectangleDrawer.drawRectangleArea(13, 20);
+            BufferedImage bi = rectangleDrawer.drawRectangleSideFromArea(20, 13);
 //            BufferedImage bi = triangularDrawer.createOnAngles(Arrays.asList(60, 60, 60));
 
 //            RectangleDrawer rectangleDrawer = new RectangleDrawer(graphic);
