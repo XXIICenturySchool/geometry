@@ -9,6 +9,6 @@ import java.util.List;
 @Component
 public class RectangleFindAreaTaskType extends TaskType {
     public RectangleFindAreaTaskType() {
-        super("RectangleFindArea", Arrays.asList(), Arrays.asList("сторона 1", "сторона 2"));
+        super("RectangleFindArea", Arrays.asList(), Arrays.asList("side", "side"));
     }
 }
