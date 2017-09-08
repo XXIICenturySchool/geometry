@@ -29,6 +29,6 @@ public class ImageSaverService {
         String fileFullName = String.format("%s-%s.gif", examId, taskNum);
         String safeFileName = staticFolder + imagesPath + fileFullName;
         ImageIO.write(image, "gif", new File(safeFileName));
-        return InetAddress.getLocalHost().getHostName() +  ":" + port + imagesUrl + fileFullName;
+        return "http://" + InetAddress.getLocalHost().getHostName() +  ":" + port + imagesUrl + fileFullName;
     }
 }
